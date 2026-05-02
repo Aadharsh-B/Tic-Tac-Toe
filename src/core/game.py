@@ -52,7 +52,9 @@ class XOGame:
     def get_move(self, cell_id: int) -> None | bool:
         """Handle the Current User's Move.
 
-        Returns True if the move was Successfully Applied.
+        Returns:
+            True if the game is Finished.
+            None if the game is Still Ongoing.
         Raises XOError if the Move is Invalid or the Game has Ended.
         """
         if self.is_over:

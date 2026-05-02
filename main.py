@@ -1,53 +1,13 @@
 import logging
-import os
 
 from src import TerminalGame
 from src.core import User
 from src.utils.errors import XOError, XOUserSymbolError
+from src.utils.helper_functions_main import clear_screen, prompt_symbol, show_header
 
 from colorama import init, Fore, Style
 
-
 init(autoreset=True)
-
-
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-
-def prompt_symbol(
-        player_number,
-        is_retry = False,
-    ) -> str:
-    msg = (
-        f"{Fore.CYAN}"
-        "Enter symbol for User"
-        f"{player_number}{Style.RESET_ALL}: "
-    )
-    if is_retry:
-        msg = (
-            f"{Fore.YELLOW}"
-            "Symbol already Taken. "
-            "Please Choose a Different Symbol for User "
-            f"{player_number}{Style.RESET_ALL}: "
-        )
-
-    while True:
-        symbol = input(msg).strip()
-        if symbol:
-            return symbol[0]
-
-        print(
-            f"{Fore.YELLOW}"
-            "Please Enter at Least 1 Character."
-            "{Style.RESET_ALL}"
-        )
-
-
-def show_header():
-    clear_screen()
-    print(f"Tic-Tac-Toe")
-
 
 logging.basicConfig(
     level=logging.INFO,
@@ -104,6 +64,7 @@ except KeyboardInterrupt:
     print(f"{Fore.BLUE}{msg}{Style.RESET_ALL}")
 
 
+# Game Over : Display Result
 msg = f"{g.current_user.user_symbol}'s Win! 🥶" if g.winner else "It's a Draw!"
 print(f"\033[5m{Fore.BLUE}{msg}{Style.RESET_ALL}\033[0m")
 

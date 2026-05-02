@@ -96,3 +96,57 @@ class XOGame:
         if self.is_draw:
             return None
         return self.winner
+
+    def display_xo_board(self):
+        """Display the board in a readable and aligned format."""
+        state = self.xo_board.state
+
+        top_border = "┌───┬───┬───┐"
+        mid_border = "├───┼───┼───┤"
+        dwn_border = "└───┴───┴───┘"
+
+        print(top_border)
+        for i in range(0, len(state), 3):
+            row = [
+                self._render_value(state[j], j)
+                for j in range(i, i + 3)
+            ]
+            print(f"│ {row[0]} │ {row[1]} │ {row[2]} │")
+            if i < len(state) - 3:
+                print(mid_border)
+        print(dwn_border)
+
+    def play_turn(self, cell: int) -> None | bool:
+        """Start the game loop."""
+        if self.get_move(cell) is True:
+            result: User | None = self.return_winner()
+            if result is None:
+                self.logger.debug("It's a Draw!")
+                return False
+            else:
+                self.logger.debug(
+                    f"Congratulations **{result.user_symbol}**!"
+                )
+            return True
+        return None
+
+    def clear_screen(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
+
+    def get_and_validate_cell_id(self) -> int:
+        """Prompt the user for a cell ID and validate it."""
+        while True:
+            try:
+                cell_id = int(
+                    input(
+                        f"{self.current_user.user_symbol}'s Turn. "
+                        "Enter a Cell ID in between (1-9): "
+                    )
+                )
+                self.xo_board.validate_cell_id(cell_id)
+                return cell_id
+            except ValueError:
+                msg = "Invalid input. Please enter a number between 1 and 9."
+                print(f"{Fore.RED}{msg}{Style.RESET_ALL}")
+            except XOError as e:
+                print(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")

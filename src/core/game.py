@@ -89,6 +89,14 @@ class XOGame:
             self.user_2 if self.current_user == self.user_1 else self.user_1
         )
 
+    def _get_other_user_symbol(self, symbol: str) -> str:
+        """Get the Symbol of the Alternate User."""
+        return (
+            self.user_2.user_symbol
+            if symbol == self.user_1.user_symbol
+            else self.user_1.user_symbol
+        )
+
     def return_winner(self) -> None | User:
         """Return the winner of the game, if there is one."""
         if not self.is_over:

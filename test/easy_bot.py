@@ -56,13 +56,14 @@ try:
     while True:
         if g.current_user.user_symbol == g.bot_symbol:
             logger.info(f"{Fore.RED}Bot's Turn... [Thinking]{Style.RESET_ALL}")
-            time.sleep(3)
+            time.sleep(2)
+            cell = None  # Default ID for the Cell in Bot's Turn
         else:
             logger.info(f"{Fore.BLUE}Player's Turn...{Style.RESET_ALL}")
             cell = g.get_and_validate_cell_id()
         g.clear_screen()
         try:
-            result = g.play_turn(cell)
+            result = g.play_turn(cell) # pyright: ignore[reportArgumentType]
         except ValueError:
             msg = "Invalid input. Please enter a number between 1 and 9."
             print(f"{Fore.RED}{msg}{Style.RESET_ALL}")

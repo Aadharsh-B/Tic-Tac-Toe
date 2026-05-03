@@ -1,13 +1,17 @@
 import logging
 
-from src.core import User, XOGame
+from src.core import Login, User, XOGame
 from src.algorithm.bot_algorithm import (
     EasyBotAlgorithm,
     MedBotAlgorithm,
     HardBotAlgorithm,
 )
 from src.utils.errors import XOError, XOUserSymbolError
-from src.utils.helper_functions_main import clear_screen, prompt_symbol, show_header
+from src.utils.helper_functions_main import (
+    clear_screen,
+    prompt_symbol,
+    show_header,
+)
 from src.utils.helper_prompt_functions import (
     get_user_id,
     get_game_mode,
@@ -42,7 +46,6 @@ while True:
         break
     except XOUserSymbolError as e:
         logger.info(f"{Fore.RED}Error: {e}{Style.RESET_ALL}")
-
 
 game_mode = get_game_mode()
 

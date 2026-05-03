@@ -1,5 +1,11 @@
-from .bot_algorithm import EasyBotAlgorithm
+from .bot_algorithm import (
+    EasyBotAlgorithm,
+    MedBotAlgorithm,
+    HardBotAlgorithm,
+)
 
 __all__ = [
     "EasyBotAlgorithm",
+    "MedBotAlgorithm",
+    "HardBotAlgorithm",
 ]
